@@ -4,7 +4,7 @@ Gauge is a read-only audit tool, so the bar for a change is "it cannot produce a
 
 ## Status
 
-The repository is a functional alpha (`ROADMAP.md` Phase 2): the policy loader, Horizon client, report renderers, orchestrator and CLI are implemented and tested. The threshold math, the rules and the SEP-1 fetcher are still placeholders, and a placeholder file is not progress. Pick work from the open issues or from `ROADMAP.md` and say which task you are taking.
+The repository is a functional alpha with Phase 2 and Phase 3 complete: all sixteen rules, threshold math, role profiles, facts report, guarded SEP-1 fetcher, Horizon client, report renderers, orchestrator and CLI are implemented and tested. Phase 4 is in progress (usage docs and README complete), and Phase 5 has the documentation site and motion layer live. Pick work from the open issues or from `ROADMAP.md` and say which task you are taking.
 
 ## Before you start
 
@@ -32,6 +32,7 @@ go test ./... -race -count=1
 govulncheck ./...                            # v1.9.0
 scripts/check_roadmap_touched.sh origin/main
 scripts/roadmap_progress.sh --check ROADMAP.md
+python3 scripts/sync_readme.py --check
 scripts/test_roadmap_gate.sh                 # self-test for the roadmap gate
 ```
 

@@ -2,7 +2,7 @@
 
 | | |
 |---|---|
-| Status | Draft v0.1 target (includes a red-team pass, section 14); functional alpha through Phase 2 plus the account, flag and identity rules as of 2026-11-03, with threshold math and signer rules still pending |
+| Status | Functional alpha; Phase 2 and Phase 3 complete (all sixteen rules live, threshold math verified, role profiles and facts report shipped); Phase 4 in progress with usage docs and README complete; Phase 5 documentation site and motion layer live |
 | Date | 2026-10-28 |
 | Companion docs | `PRD.md`, `ARCHITECTURE_ESSENTIALS.md`, `ROADMAP.md`, `project_structure.md`, `AGENTS.md`, `CLAUDE.md` |
 | Tags | **[Verified]** checked against a source; **[Unverified]** believed or designed but untested |

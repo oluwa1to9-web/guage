@@ -1,6 +1,6 @@
 # ROADMAP: Gauge
 
-Last updated: 2026-11-09T14:40Z (update Drips Wave 11 submission packet and sibling comparison)
+Last updated: 2026-11-19T10:15Z (gate G7 sweep: documents agree with code, recorded readings for G5 and G6)
 Roadmap version: 3
 
 This file is the single source of truth for remaining work. It is read before every task and updated after every change.
@@ -42,7 +42,7 @@ The repository is 100% ready when every task in Phases 0 to 6 is done and every 
 | 6 | Release v0.2.0 and community | 0 | 5 | 0% |
 | 7 (backlog) | Backlog | 0 | 4 | 0% |
 | **Phases 0 to 6** | **Readiness total** | **56** | **79** | **70%** |
-| Gates | G1 to G10 | 3 | 10 | 30% |
+| Gates | G1 to G10 | 4 | 10 | 40% |
 <!-- PROGRESS:END -->
 
 ## 3. Readiness gates
@@ -55,7 +55,7 @@ All must be true for 100%.
 - [ ] **G4** Dogfood: Gauge runs against real operator accounts with zero false HIGH findings once expectations are declared.
 - [ ] **G5** `govulncheck`, `staticcheck` and `go vet` are clean in CI, and the repo's Scorecard score is 8 or higher.
 - [ ] **G6** Releases are attested, and the verification command is documented and tested.
-- [ ] **G7** `PRD.md`, `ARCHITECTURE.md`, `ARCHITECTURE_ESSENTIALS.md`, `project_structure.md`, `AGENTS.md`, `CLAUDE.md` and `README.md` agree with the code.
+- [x] **G7** `PRD.md`, `ARCHITECTURE.md`, `ARCHITECTURE_ESSENTIALS.md`, `project_structure.md`, `AGENTS.md`, `CLAUDE.md` and `README.md` agree with the code. (done 2026-11-19: sweep of all seven briefing documents, README, CONTRIBUTING, SECURITY, docs/ and site/ brings every statement into agreement with the shipped code in one recorded pass. All sixteen rules, threshold math, role profiles, facts report, 200 passing tests, 38 golden files, documentation site, motion layer, dynamic README metric sync, and sibling repository counts are aligned across every document. Gates G5 and G6 remain open with readings recorded: G5 Scorecard at 6.8 with three Branch-Protection warnings under D-14; G6 waiting on release tag under D-12.)
 - [ ] **G8** Required status checks (tests and roadmap gate) are configured, and a direct push to the default branch is rejected.
 - [ ] **G9** No High-rated risk in section 8 is open without a mitigation task or an accepted decision.
 - [ ] **G10** This file is current: last updated within the latest merged PR.
@@ -276,6 +276,7 @@ Newest first. One row per merged change.
 
 | Date (UTC) | Change | Tasks |
 |---|---|---|
+| 2026-11-19 | Gate G7 closes on a recorded sweep bringing every document into agreement with the code. Updated ARCHITECTURE.md, ARCHITECTURE_ESSENTIALS.md, project_structure.md, CONTRIBUTING.md, SECURITY.md, PRD.md, AGENTS.md, site/status.html, and site/mechanics.html to reflect Phase 3 completion, 16 registered rules, facts report, 200 passing tests, 38 golden files, site motion layer, and dynamic README sync. Recorded observations for gate G5 (issue #70: Scorecard 6.8 with 3 branch protection warnings under D-14, ci / go and ci / vuln clean in run 42627808348) and gate G6 (issue #71: 0 releases and 0 tags under D-12, attestation requires hosted tag workflow). | G7 |
 | 2026-11-09 | Updated Drips Wave submission packet (docs/WAVE_SUBMISSION.md) for Wave 11: confirmed 200 unit tests passing, all 16 rules registered, OpenSSF Scorecard at 6.8 with live badge, live documentation site at https://posture-sec.github.io/guage/, dynamic README metric sync, and updated sibling comparison data across org repositories. | none ticked |
 | 2026-11-09 | Finalized project naming by removing all occurrences of "working name" across repository documentation, PRD, architecture, and roadmap files. Implemented dynamic README metrics synchronization (`scripts/sync_readme.py`) generating live Shields.io endpoint JSON files under `site/data/` for 200 tests and 16 rules, and enforced with `--check` in the `roadmap-check` workflow. | none ticked |
 | 2026-11-09 | Add Docs Live badge to README and prominent navigation links to the 7-page live documentation site. | none ticked |

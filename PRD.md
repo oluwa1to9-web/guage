@@ -237,7 +237,7 @@ expires = "2027-04-27"                   # optional
 No calendar dates. Phases and exit criteria live in `ROADMAP.md`.
 
 - **v0.1.0:** Phases 0 to 4. **v0.2.0:** Phases 5 and 6. **Backlog:** Phase 7.
-- Feature sequencing is settled: D-04 was decided on 2026-10-30 to build Gauge now and share conventions, not code, with Airlock. The scaffold-only exception (ROADMAP D-09) that covered the first pull requests is spent; Phase 0 stands at 11 of 13 with 0.4 and 0.7 open, and the readiness gates in `ROADMAP.md` section 3 still decide when a version can be tagged. Airlock came back online on 2026-11-02 at `posture-sec/airlock`, 45 of its 95 tasks done and its only tag a `v0.0.1` pre-release, so the version D-04 declined to wait for still does not exist and the decision is unchanged by it.
+- Feature sequencing is settled: D-04 was decided on 2026-10-30 to build Gauge now and share conventions, not code, with Airlock. The scaffold-only exception (ROADMAP D-09) that covered the first pull requests is spent; Phase 0 stands at 12 of 13 with only 0.4 open (0.7 closed on 2026-11-04 by verifying threshold semantics from the protocol implementation), and the readiness gates in `ROADMAP.md` section 3 still decide when a version can be tagged. Airlock came back online on 2026-11-02 at `posture-sec/airlock`, 45 of its 95 tasks done and its only tag a `v0.0.1` pre-release, so the version D-04 declined to wait for still does not exist and the decision is unchanged by it.
 
 ## 10. Risks and mitigations
 
@@ -270,7 +270,7 @@ No calendar dates. Phases and exit criteria live in `ROADMAP.md`.
   - Observed on `https://soroban-testnet.stellar.org`: `getLedgerEntries` accepts the 40-byte classic account `LedgerKey` and returns the account's `LedgerEntry` XDR with its `lastModifiedLedgerSeq`, no `contentType` field, and `latestLedger` 5466028.
   - SEP-1 v2.7.0: `https://DOMAIN/.well-known/stellar.toml`, 100 KB maximum, `Access-Control-Allow-Origin: *` mandatory, `text/plain` recommended not required, fields `VERSION`, `NETWORK_PASSPHRASE`, `SIGNING_KEY`, `HORIZON_URL`, `ACCOUNTS` (list of `G...`), no `ACCOUNT_ID`, and no rules about redirects or status codes. SEP-29: the `config.memo_required` data entry whose value is base64 of `1`, non-muxed destinations only, client-enforced, and it must block submission rather than warn.
   - `github.com/BurntSushi/toml`: MIT license, latest release v1.6.0, last pushed 2026-08-18T20:04:59Z, 5,028 stars, not archived, and its own `go.mod` declares no `require` directives, so it carries no transitive dependencies.
-  - Name and landscape searches: `getgauge/gauge` 3,195 stars (pushed 2026-10-29), `npm/gauge` 320 stars, `evoziosk/guage` 4 stars (pushed 2026-10-13), GitHub account `guage` exists with 0 public repositories, `zvere1111/StellarGauge` TypeScript with 1 star (last push 2025-12-17), `github.com/posture-sec/guage` resolves on the module proxy with an empty version list, and `gh api orgs/posture-sec/repos` returns only `guage`.
+  - Name and landscape searches: `getgauge/gauge` 3,195 stars (pushed 2026-10-29), `npm/gauge` 320 stars, `evoziosk/guage` 4 stars (pushed 2026-10-13), GitHub account `guage` exists with 0 public repositories, `zvere1111/StellarGauge` TypeScript with 1 star (last push 2025-12-17), `github.com/posture-sec/guage` resolves on the module proxy with an empty version list, and `gh api orgs/posture-sec/repos` returns four public repositories (`guage`, `airlock`, `stellar-account-fixtures`, `.github`).
 
 **Unverified or untested** (listed in full in section 14)
 
