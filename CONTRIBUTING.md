@@ -4,7 +4,7 @@ Gauge is a read-only audit tool, so the bar for a change is "it cannot produce a
 
 ## Status
 
-The repository is a functional alpha with Phase 2 and Phase 3 complete: all sixteen rules, threshold math, role profiles, facts report, guarded SEP-1 fetcher, Horizon client, report renderers, orchestrator and CLI are implemented and tested. Phase 4 is in progress (usage docs and README complete), and Phase 5 has the documentation site and motion layer live. Pick work from the open issues or from `ROADMAP.md` and say which task you are taking.
+The repository is a functional alpha. Phases 0 to 3 are complete as of 2026-11-05: the policy loader, Horizon client, report renderers, orchestrator, CLI, threshold math, guarded SEP-1 fetcher and all sixteen rules are implemented and tested, and every Appendix B scenario has a golden report behind it. Phase 4, where a release waits, is open (dogfooding, the CI matrix, release artifacts). Pick work from the open issues or from `ROADMAP.md` and say which task you are taking.
 
 ## Before you start
 

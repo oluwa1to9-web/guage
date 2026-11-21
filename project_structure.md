@@ -111,12 +111,14 @@ guage/
     RELEASE.md                            # 4.5 release runbook, reproducible build verification loop
     WAVE_SUBMISSION.md                    # verified Drips Wave facts, gate list, runbook        (1.15, D-13)
 
-  site/                                   # documentation site v1, deployed to GitHub Pages      (5.9, 5.10, 5.11)
+  site/                                   # documentation site, deployed to GitHub Pages      (5.8 to 5.11)
     index.html                            # overview
     rules.html                            # rule reference
     policy.html                           # policy file reference
     mechanics.html                        # how a run works
-    guides.html                           # clone to failing build
+    guides.html                           # clone to failing build, per-role operator advice
+    developers.html                       # package map, tests, adding a rule or policy field (5.8)
+    contributing.html                     # roadmap rule, branch and review process             (5.8)
     status.html                           # what ships, what is verified, what does not
     404.html                              # Pages 404; root-relative asset paths
     assets/{site.css,site.js,motion.css,motion.js,favicon.svg,og.png}  # stylesheet, motion layer, copy toggle, share card

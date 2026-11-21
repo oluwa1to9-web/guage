@@ -58,10 +58,12 @@
         <a href="rules.html">Rules <span>16</span></a>
         <a href="policy.html">Policy <span>toml</span></a>
         <a href="guides.html" aria-current="page">Guides <span>run</span></a>
+        <a href="developers.html">Developers <span>code</span></a>
+        <a href="contributing.html">Contributing <span>pr</span></a>
         <a href="status.html">Status <span>now</span></a>
       </nav>
       <div class="side-meta">
-        <p>Docs updated 2026-11-05<br>Gauge 0.1.0-dev</p>
+        <p>Docs updated 2026-11-18<br>Gauge 0.1.0-dev</p>
         <a href="https://github.com/posture-sec/guage">Repository</a>
         <a href="https://github.com/posture-sec/guage/blob/main/ROADMAP.md">Roadmap</a>
         <a href="https://github.com/posture-sec/guage/blob/main/SECURITY.md">Security</a>
@@ -271,6 +273,10 @@ jobs:
               <dt>Merchant</dt>
               <dd><strong>Use <code>check</code> for a quick read and a policy once the set of accounts is stable.</strong> A merchant account is usually the simplest to describe, so drift stands out. Be clear about what the merchant role does not buy yet: its weighting is the distribution row, and the check a receiving account actually asks for is SEP-29, task 5.6, still unshipped. That is the <code>config.memo_required</code> data entry, the one a sending client reads before it will pay you without a memo, and Gauge reports no account data today. A merchant report answers who controls the account and at what weight, not whether the payments it expects to receive will arrive attributable.</dd>
             </div>
+            <div class="ledger-row">
+              <dt>Other</dt>
+              <dd><strong>Declare the role you actually have, even when it is <code>other</code>.</strong> <code>check</code> runs at this row, so single-key control is INFO and every drift rule stays at its baseline severity. Writing <code>role = "other"</code> in a policy still buys the comparison half: an undeclared signer, a declared key the chain no longer shows, a weight or threshold that moved and a declared flag that drifted all become findings at the baseline severity. What this row does not do is raise anything, which is the honest reading for an account whose purpose the policy does not state.</dd>
+            </div>
           </dl>
           <p class="table-caption">These are authoring recommendations, not severity profiles. The profiles themselves are <code>PRD.md</code> Appendix A, applied since task 3.4: a declared role raises a finding to the severity its row names and never lowers one. Only seven rules appear in a row at all, so a role moves <code>sig-single-key-high</code>, <code>flag-drift</code>, <code>flag-undeclared-clawback</code>, <code>sig-weight-drift</code> and <code>thr-drift</code> above the severity <code>check</code> prints, names <code>sig-unexpected-signer</code> and <code>sig-missing-expected</code> at the HIGH they already emit, and leaves the other nine exactly where the baseline puts them. The weights are on the <a href="rules.html">rules page</a>.</p>
         </section>
@@ -290,7 +296,7 @@ scripts/roadmap_progress.sh --check ROADMAP.md
 scripts/generate_issues.sh --check</pre>
           </div>
           <p class="small muted">Install the pinned tools with <code>go install honnef.co/go/tools/cmd/staticcheck@v0.8.2</code> and <code>go install golang.org/x/vuln/cmd/govulncheck@v1.9.0</code>. The fuzz targets run one at a time, because <code>-fuzz</code> refuses multiple packages: <code>go test ./internal/strkey -run '^$' -fuzz=FuzzClassify -fuzztime=10s</code>, then the same against <code>FuzzText</code> and <code>FuzzFenced</code> in <code>internal/sanitize</code>. They are smoke runs a contributor makes locally, not CI jobs.</p>
-          <p>Adding a rule means a new pure function in <code>internal/rules</code>, a registration entry, a positive and a negative fixture, updated golden files, and matching updates to <code>PRD.md</code> 6.1 and <code>ARCHITECTURE_ESSENTIALS.md</code> 8. The roadmap rule applies to every change, including documentation: <code>ROADMAP.md</code> is updated in the same pull request.</p>
+          <p>Adding a rule means a new pure function in <code>internal/rules</code>, a registration entry, a positive and a negative fixture, updated golden files, and matching updates to <code>PRD.md</code> 6.1 and <code>ARCHITECTURE_ESSENTIALS.md</code> 8. The roadmap rule applies to every change, including documentation: <code>ROADMAP.md</code> is updated in the same pull request. The package map, test commands and golden regeneration steps are on <a href="developers.html">the developer guide</a>, and the branch, review and protected-path rules are on <a href="contributing.html">the contributing guide</a>.</p>
         </section>
 
         <section class="section">
