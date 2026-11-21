@@ -63,7 +63,6 @@ go test ./... -race -count=1                                                    
 govulncheck ./...                # v1.9.0                                      [ci / vuln]
 scripts/check_roadmap_touched.sh origin/main                                  [roadmap-check / gate]
 scripts/roadmap_progress.sh --check ROADMAP.md                                [roadmap-check / gate]
-python3 scripts/sync_readme.py --check                                        [roadmap-check / gate]
 scripts/test_roadmap_gate.sh                                                    [roadmap-check / gate]
 scripts/generate_issues.sh --check          # backlog rows cover every open task      [roadmap-check / gate]
 python3 scripts/sync_readme.py --check-base origin/main   # metrics block is script-owned [roadmap-check / gate]

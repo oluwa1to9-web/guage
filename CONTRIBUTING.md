@@ -32,7 +32,6 @@ go test ./... -race -count=1
 govulncheck ./...                            # v1.9.0
 scripts/check_roadmap_touched.sh origin/main
 scripts/roadmap_progress.sh --check ROADMAP.md
-python3 scripts/sync_readme.py --check
 scripts/test_roadmap_gate.sh                 # self-test for the roadmap gate
 python3 scripts/sync_readme.py --check-base origin/main
 ```

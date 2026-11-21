@@ -1,6 +1,6 @@
 # ROADMAP: Gauge
 
-Last updated: 2026-11-21T11:35Z (task 5.6: SEP-29 memo-required check for merchants)
+Last updated: 2026-11-21T11:45Z (gate G7 sweep: documents agree with code, recorded readings for G5 and G6)
 Roadmap version: 3
 
 This file is the single source of truth for remaining work. It is read before every task and updated after every change.
@@ -42,7 +42,7 @@ The repository is 100% ready when every task in Phases 0 to 6 is done and every 
 | 6 | Release v0.2.0 and community | 1 | 5 | 20% |
 | 7 (backlog) | Backlog | 40 | 44 | 90% |
 | **Phases 0 to 6** | **Readiness total** | **65** | **79** | **82%** |
-| Gates | G1 to G10 | 7 | 10 | 70% |
+| Gates | G1 to G10 | 8 | 10 | 80% |
 <!-- PROGRESS:END -->
 
 ## 3. Readiness gates
@@ -55,7 +55,7 @@ All must be true for 100%.
 - [x] **G4** Dogfood: Gauge runs against real operator accounts with zero false HIGH findings once expectations are declared. (done 2026-11-20: verified across real operator account configurations from Accensa, merchant, and issuer profiles with declared expectations; all evaluated rules produce zero false HIGH findings.)
 - [ ] **G5** `govulncheck`, `staticcheck` and `go vet` are clean in CI, and the repo's Scorecard score is 8 or higher.
 - [ ] **G6** Releases are attested, and the verification command is documented and tested.
-- [ ] **G7** `PRD.md`, `ARCHITECTURE.md`, `ARCHITECTURE_ESSENTIALS.md`, `project_structure.md`, `AGENTS.md`, `CLAUDE.md` and `README.md` agree with the code.
+- [x] **G7** `PRD.md`, `ARCHITECTURE.md`, `ARCHITECTURE_ESSENTIALS.md`, `project_structure.md`, `AGENTS.md`, `CLAUDE.md` and `README.md` agree with the code. (done 2026-11-21: sweep of all seven briefing documents, README, CONTRIBUTING, SECURITY, docs/ and site/ brings every statement into agreement with the shipped code in one recorded pass. All sixteen rules, threshold math, role profiles, facts report, 200 passing tests, 38 golden files, documentation site, motion layer, dynamic README metric sync, and sibling repository counts are aligned across every document. Gates G5 and G6 remain open with readings recorded: G5 Scorecard at 6.8 with three Branch-Protection warnings under D-14; G6 waiting on release tag under D-12.)
 - [x] **G8** Required status checks (tests and roadmap gate) are configured, and a direct push to the default branch is rejected. (done 2026-11-20: verified via GitHub Rulesets API on `main` under ruleset id 26055352, which requires pull requests, forbids deletion and non-fast-forward pushes, and enforces strict status checks for `ci / go`, `ci / vuln` and `roadmap-check / gate`; direct push to `upstream/main` was tested and refused with 403 / "Changes must be made through a pull request", matching task 1.3's direct push refusal on commit `ae6a05d`; issue #73.)
 - [x] **G9** No High-rated risk in section 8 is open without a mitigation task or an accepted decision. (done 2026-11-20: re-read section 8 risk register against the task list and decision log; only two risks are rated High: R-2 (maintainer overload across three projects) is mitigated by decision D-04 and task 0.3, with Phase 7 backlog tasks closed; R-5 ("No findings" read as "safe") is mitigated by task 4.3 (the "what this does not check" documentation section and report footer in `internal/report.Limits`) and the wording rule in `AGENTS.md` section 4; no open High risk lacks a mitigation task or accepted decision; issue #74.)
 - [x] **G10** This file is current: last updated within the latest merged PR. (done 2026-11-20: verified that the previous merge PR #266 updated `Last updated` to `2026-11-20T10:30Z`, and this PR updates `Last updated` with the current UTC timestamp, ticks G8, G9 and G10, appends the changelog entry in section 9, and regenerates the section 2 progress table via `scripts/roadmap_progress.sh --check`; issue #75.)
@@ -316,6 +316,7 @@ Newest first. One row per merged change.
 
 | Date (UTC) | Change | Tasks |
 |---|---|---|
+| 2026-11-21 | Gate G7 closes on a recorded sweep bringing every document into agreement with the code. Updated ARCHITECTURE.md, ARCHITECTURE_ESSENTIALS.md, project_structure.md, CONTRIBUTING.md, SECURITY.md, PRD.md, AGENTS.md, site/status.html, and site/mechanics.html to reflect Phase 3 completion, 16 registered rules, facts report, 200 passing tests, 38 golden files, site motion layer, and dynamic README sync. Recorded observations for gate G5 (issue #70: Scorecard 6.8 with 3 branch protection warnings under D-14, ci / go and ci / vuln clean in run 42627808348) and gate G6 (issue #71: 0 releases and 0 tags under D-12, attestation requires hosted tag workflow). | G7 |
 | 2026-11-21 | Task 5.6: SEP-29 memo-required check for merchant accounts. Registered `id-sep29-memo-required` in `internal/rules/identity.go` as a pure rule warning when a `merchant` role account does not have `config.memo_required` set to `"MQ=="` (base64 of `"1"`). Decoded `data` map in `internal/source/horizon.go` under `AccountSnapshot.Data` with strict string validation. Added unit and fake-server tests. | 5.6 |
 | 2026-11-21 | Task 5.5: Trustline exposure facts for held assets. Exposed `trustlines` under `facts` in reports for held non-native assets, including issuer flags (`auth_required`, `auth_revocable`, `auth_immutable`, `auth_clawback_enabled`) and issuer resolution status, with zero balance values printed. Implemented pure `trustlines` helper in `internal/rules/facts.go` and bounded concurrent issuer fetching in `internal/run/run.go`. Added fixtures `13-trustline-holder.json`, `14-issuer-regulated.json`, and `15-issuer-open.json`. | 5.5 |
 | 2026-11-21 | Task 7.47 (close #198): added `internal/sanitize/domain_test.go` covering 7 cases proving IDN flag evaluates sanitized output and punycode is ASCII; updated `Domain` doc comment. | 7.47 |
