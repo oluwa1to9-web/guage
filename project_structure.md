@@ -57,7 +57,11 @@ guage/
       {text,domain,markdown}.go            # output and domain handling (2.5, 5.3)
       {sanitize_test,fuzz_test}.go         # injection classes, IDN, fencing; FuzzText and FuzzFenced
       {zero_width,tag_block,c1}_test.go    # per-rune boundaries of the dropped sets (7.23, 7.24, 7.25)
+      {zero_width,tag_block,c1}_test.go    # per-rune boundaries of the dropped sets (7.23, 7.24, 7.25)
       conformance_test.go                 # one hostile corpus held against Text, Markdown, Fenced and Domain (7.33)
+      osc_test.go                          # hyperlink escapes consumed whole, URL included (7.43)
+      bidi_test.go                         # per-rune bidi overrides and isolate controls table (7.46)
+      domain_test.go                       # IDN home domain matrix and punycode semantics (7.47)
     policy/
       {config,expectations,accept}.go      # policy declarations, no decoding or acceptance logic
       {decode,validate,roles}.go           # strict loading, rejection kinds, network passphrases and the Appendix A role floors (2.4, 3.4)

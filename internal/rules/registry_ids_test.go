@@ -16,7 +16,7 @@ var ruleIDFamilies = []string{"acct", "sig", "thr", "flag", "id", "src"}
 func TestRegistryIDs(t *testing.T) {
 	t.Parallel()
 
-	const wantCount = 16
+	const wantCount = 17
 	pattern := regexp.MustCompile(`^(` + strings.Join(ruleIDFamilies, "|") + `)-[a-z0-9]+(-[a-z0-9]+)*$`)
 
 	all := All()
