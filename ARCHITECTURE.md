@@ -425,14 +425,14 @@ Role severity matrix: `PRD.md` Appendix A, applied since 2026-11-04 (task 3.4) a
 
 ## 10. Distribution and CI
 
-- Static binaries per platform attached to a GitHub release with provenance attestations; the README documents the verification command.
+- Static binaries per platform attached to a GitHub release with provenance attestations, built from the tag by `.github/workflows/release.yml` (task 6.2); the README documents the verification command.
 - `go install` also works but builds from source on the user's machine.
 - Scheduled drift checks (P1): a workflow template that runs `audit` on a cron with `permissions: contents: read` (plus `issues: write` only on the job that opens an issue), pinned by SHA, reading the policy from the default branch. The residual risk in section 4 applies.
 - No Docker image in v0.1: an extra unpinned layer and a registry trust hop.
 
 ## 11. Self-protection of the repository
 
-- Every Action pinned by hash; top-level `permissions: contents: read`; write only on the release job.
+- Every Action pinned by hash; top-level `permissions: contents: read`; write only on the release job. That job is `.github/workflows/release.yml` (task 6.2): its build job holds `id-token: write` and `attestations: write` for the provenance signature, and only the separate publish job holds `contents: write`, after re-verifying the checksums and the attestations.
 - Rulesets: no force pushes, no deletion, required status checks; `CODEOWNERS` on `internal/`, `cmd/`, `.github/`, `scripts/` and `go.mod`.
 - Hardware-key 2FA and a protected recovery email for maintainers; org-level 2FA requirement. These matter more than any code.
 - `govulncheck`, `staticcheck` and `go vet` run in CI. Dependabot for `gomod` and Actions, grouped weekly; the TOML dependency is reviewed by hand on every bump.

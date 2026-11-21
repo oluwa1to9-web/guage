@@ -111,14 +111,13 @@ backlog() {
     '6.3	type: research	area: rules	docs(triage): review external false-positive reports' \
     '6.4	type: research	area: docs	docs(decisions): decide funding and applications (D-07)' \
     '6.5	type: docs	area: docs	docs(outreach): contact issuers, anchors and treasury teams' \
-    '7.5	type: test	area: cli	test(cli): refuse a seed before building a client' \
-    '7.6	type: test	area: ci	test(ci): reject duplicated backlog rows' \
-    '7.8	type: test	area: rules	test(rules): prove rule evaluation never mutates the observed snapshot' \
-    '7.9	type: test	area: rules	test(rules): each finding carries the ID of the rule that emitted it' \
-    '7.10	type: feature	area: model	feat(model): add Valid and Equal helpers to Thresholds and Flags' \
-    '7.33	type: security	area: sanitize	security(sanitize): conformance matrix across all four entry points' \
-    '7.34	type: test	area: run	test(run): keep the first account error when a later read fails' \
-    '7.35	type: fix	area: run	fix(run): stop the run when the context ends between stages' \
+    '7.36	type: test	area: rules	test(rules): reject duplicate or malformed rule IDs' \
+    '7.37	type: test	area: rules	test(rules): pin registry evaluation order before reports sort' \
+    '7.38	type: test	area: run	test(run): prove network mismatch skips identity fetches' \
+    '7.39	type: feature	area: cli	feat(cli): expose bounded concurrency on check' \
+    '7.40	type: bug	area: cli	fix(cli): share format rejection diagnostics' \
+    '7.41	type: security	area: model	security(model): hash evidence after format-character stripping' \
+    '7.42	type: feature	area: policy	feat(policy): scope accepted risks to one network' \
     'G1	type: test	area: rules	gate: every P0 requirement has passing tests' \
     'G2	type: test	area: rules	gate: every scenario has a fixture and expected findings' \
     'G3	type: test	area: cli	gate: fail-closed paths all exit non-zero' \

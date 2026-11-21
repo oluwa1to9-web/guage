@@ -130,7 +130,7 @@ func Run(ctx context.Context, job Job) (model.Report, error) {
 		findings, recovered := evaluate(job.Evaluate, ruleContext)
 		panicked = panicked || recovered
 		applyRoles(job.Accounts[i].Role, findings)
-		applyAccepts(findings, job.Accepts, now())
+		applyAccepts(findings, job.Accepts, info.Passphrase, now())
 		model.SortFindings(findings)
 		facts := rules.Facts(ruleContext)
 		if !job.HasPolicy {
@@ -407,13 +407,22 @@ func applyRoles(role model.Role, findings []model.Finding) {
 	}
 }
 
-func applyAccepts(findings []model.Finding, accepts []policy.Acceptance, now time.Time) {
+// applyAccepts marks a finding accepted when an entry names its rule and account,
+// has not expired and either names no network or names the one this run verified.
+// The passphrase is what the endpoint reported and CheckPassphrase accepted; an
+// entry may name an alias instead, so it goes through the same mapping a policy's
+// top-level network does. Without the network check a testnet acceptance silently
+// covers the same G address on mainnet, since the account and the evidence match.
+func applyAccepts(findings []model.Finding, accepts []policy.Acceptance, network string, now time.Time) {
 	for i := range findings {
 		if !policy.Acceptable(findings[i].RuleID) {
 			continue
 		}
 		for _, accept := range accepts {
 			if accept.Rule != findings[i].RuleID || accept.Account != findings[i].Account {
+				continue
+			}
+			if accept.Network != "" && policy.ExpectedPassphrase(accept.Network) != network {
 				continue
 			}
 			if !acceptLive(accept, now) {
