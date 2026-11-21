@@ -5,7 +5,6 @@ import (
 	"net/url"
 	"strconv"
 	"strings"
-	"time"
 
 	"github.com/posture-sec/guage/internal/model"
 	"github.com/posture-sec/guage/internal/strkey"
@@ -193,10 +192,8 @@ func (a *Acceptance) validate(index int) error {
 	if strings.TrimSpace(a.Reason) == "" {
 		return withDetail(ErrAccept, field+".reason")
 	}
-	if a.Expires != nil {
-		if _, err := time.Parse("2006-01-02", *a.Expires); err != nil {
-			return withDetail(ErrAccept, field+".expires")
-		}
+	if a.Expires != nil && !a.Expires.Valid() {
+		return withDetail(ErrAccept, field+".expires")
 	}
 	return nil
 }

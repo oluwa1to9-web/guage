@@ -131,7 +131,7 @@ func TestFactsMarkALockTheRoleMayNotDeclare(t *testing.T) {
 			if declared.ExpectLockedIgnored != tt.want {
 				t.Errorf("expect_locked ignored = %t, want %t (%+v)", declared.ExpectLockedIgnored, tt.want, declared)
 			}
-			if declared.Role != string(tt.account.Role) {
+			if declared.Role != tt.account.Role {
 				t.Errorf("declared role = %q, want %q", declared.Role, tt.account.Role)
 			}
 		})

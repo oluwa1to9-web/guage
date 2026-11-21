@@ -45,6 +45,7 @@ guage/
       model_test.go                       # severity names, fingerprint, ordering, JSON and exit-code contracts
       account_sequence_test.go            # the sequence token stays a JSON string above 2^53
       facts_nil_test.go                   # null and zero fact blocks on the wire, with round trips
+      {facts_identity,facts_declared}_test.go # network verdict without passphrase guard and typed DeclaredFacts.Role (7.57, 7.58)
       severity_bounds_test.go             # valid severities, marshal refusal and invalid-severity sort order
     strkey/
       {address,checksum,seed}.go           # SEP-23 classify, CRC16 and seed detection (2.2)
@@ -69,7 +70,7 @@ guage/
       {config,expectations,accept}.go      # policy declarations, no decoding or acceptance logic
       {decode,validate,roles}.go           # strict loading, rejection kinds, network passphrases and the Appendix A role floors (2.4, 3.4)
       config_test.go                       # loader tests, including that the shipped example policy loads (2.4)
-      {accept,roles}_test.go               # acceptance refusals and the role-floor table (3.4)
+      {accept,roles,roles_keys,roles_mutation}_test.go # acceptance refusals, 16x5 role-floor table, raised counts and isolation (3.4, 7.54 to 7.56)
       unknown_keys_test.go                 # one load names every unknown key, sorted, never a value (7.31)
     source/
       source.go                           # Source interface and the passphrase comparison
@@ -99,6 +100,7 @@ guage/
       roles_test.go                       # one account at five roles: severity, fingerprint, accepts and the lock declaration (3.4)
       first_error_test.go                 # two ordered concurrent read failures: the first, with its account ID, wins and a queued account is never read (7.34)
       stage_cancel_test.go                # a context that ends between stages returns no report and builds no identity fetcher (7.35)
+      {identity_lazy,panic_containment,semaphore_peak}_test.go # lazy identity fetcher, panic containment, and concurrency limit peak (7.59 to 7.61)
 
   testdata/
     horizon/README.md                     # provenance of every file: which five are testnet captures, which seven are built, and how (0.6, 3.6)

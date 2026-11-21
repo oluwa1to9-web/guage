@@ -171,7 +171,7 @@ func writeDeclared(b *strings.Builder, facts *model.AccountFacts) {
 		b.WriteString("  declared: nothing; this run read no policy file, so only the universal rules ran\n")
 		return
 	}
-	header := "  declared: role " + declared.Role
+	header := "  declared: role " + string(declared.Role)
 	if name := declared.Name; name != "" {
 		header += fmt.Sprintf(", name %q", name)
 	}

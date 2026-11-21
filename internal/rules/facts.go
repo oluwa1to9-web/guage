@@ -102,7 +102,7 @@ func reachability(snapshot model.AccountSnapshot) *model.Reachability {
 func declaredFacts(account policy.Account) *model.DeclaredFacts {
 	facts := &model.DeclaredFacts{
 		Name: account.Name,
-		Role: string(account.Role),
+		Role: account.Role,
 	}
 	if signers := account.ExpectedSigners; signers != nil {
 		count := len(*signers)

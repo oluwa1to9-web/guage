@@ -127,6 +127,14 @@ backlog() {
     '7.51	type: test	area: threshold	test(threshold): pre-auth tx exclusion in standing weight sum' \
     '7.52	type: test	area: threshold	test(threshold): early returns in MinSigners against boundary signers' \
     '7.53	type: test	area: threshold	test(threshold): weight filter at every tier against lone and mixed signers' \
+    '7.54	type: test	area: policy	test(policy): role severity catalog matrix and raised-rule counts' \
+    '7.55	type: test	area: policy	test(policy): acceptance expiry date type with UTC cutover' \
+    '7.56	type: test	area: policy	test(policy): immutable role floors per call' \
+    '7.57	type: bug	area: model	fix(model): refuse a network verdict with no passphrase' \
+    '7.58	type: feature	area: model	feat(model): type DeclaredFacts.Role as model.Role' \
+    '7.59	type: bug	area: run	fix(run): build the identity fetcher only when a domain needs it' \
+    '7.60	type: test	area: run	test(run): one panicking rule produces one src-rule-panic finding' \
+    '7.61	type: test	area: run	test(run): cap in-flight account reads at the concurrency limit' \
     'G1	type: test	area: rules	gate: every P0 requirement has passing tests' \
     'G2	type: test	area: rules	gate: every scenario has a fixture and expected findings' \
     'G3	type: test	area: cli	gate: fail-closed paths all exit non-zero' \
@@ -170,6 +178,7 @@ verb_for() {
     "type: test") printf 'test' ;;
     "type: tooling") printf 'ci' ;;
     "type: security") printf 'chore' ;;
+    "type: bug") printf 'fix' ;;
     *) printf 'docs' ;;
   esac
 }

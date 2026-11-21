@@ -84,7 +84,7 @@ func prepareFacts(facts *model.AccountFacts) *model.AccountFacts {
 	if declared := facts.Declared; declared != nil {
 		copied := *declared
 		copied.Name = sanitize.Text(copied.Name)
-		copied.Role = sanitize.Text(copied.Role)
+		copied.Role = model.Role(sanitize.Text(string(copied.Role)))
 		copied.HomeDomain = sanitizePointer(copied.HomeDomain)
 		out.Declared = &copied
 	}

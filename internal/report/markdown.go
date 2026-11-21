@@ -121,7 +121,8 @@ func writeMarkdownDeclared(b *strings.Builder, facts *model.AccountFacts) {
 		b.WriteString("Nothing: this run read no policy file, so only the universal rules ran.\n")
 		return
 	}
-	fmt.Fprintf(b, "- role: %s\n", md(declared.Role))
+	roleStr := string(declared.Role)
+	fmt.Fprintf(b, "- role: %s\n", md(roleStr))
 	if declared.Name != "" {
 		fmt.Fprintf(b, "- name: %s\n", markdownQuoted(&declared.Name, ""))
 	}
@@ -134,7 +135,7 @@ func writeMarkdownDeclared(b *strings.Builder, facts *model.AccountFacts) {
 		fmt.Fprintf(b, "- expect\\_locked: %s\n", notDeclared)
 	case declared.ExpectLockedIgnored:
 		fmt.Fprintf(b, "- expect\\_locked: %t, which role %s is not allowed to declare; it is read for issuer alone\n",
-			*declared.ExpectLocked, markdownQuoted(&declared.Role, ""))
+			*declared.ExpectLocked, markdownQuoted(&roleStr, ""))
 	default:
 		fmt.Fprintf(b, "- expect\\_locked: %t\n", *declared.ExpectLocked)
 	}

@@ -4,6 +4,7 @@ import (
 	"errors"
 	"strings"
 	"testing"
+	"time"
 
 	"github.com/posture-sec/guage/internal/model"
 )
@@ -100,6 +101,58 @@ expires = "` + tc.expires + `"
 	}
 }
 
+// Date is the expiry shape as a type, so the two questions a caller asks about it
+// are answered in one place. A value that is not a calendar day is not valid, and
+// only a valid value has a last day to hold on.
+func TestDateValid(t *testing.T) {
+	t.Parallel()
+	for _, tc := range []struct {
+		date Date
+		want bool
+	}{
+		{"2027-01-01", true},
+		{"2028-02-29", true},
+		{"", false},
+		{"2027-13-01", false},
+		{"2027-04-31", false},
+		{"2027-1-01", false},
+		{"2027/01/01", false},
+		{"2027-01-01T00:00:00Z", false},
+	} {
+		if got := tc.date.Valid(); got != tc.want {
+			t.Errorf("Date(%q).Valid() = %v, want %v", tc.date, got, tc.want)
+		}
+	}
+}
+
+// The named day is the last day the acceptance holds and the cutover is midnight
+// UTC, which is the rule internal/run applies. The two fixed zones are what makes
+// this a test rather than an assertion about Format: each row is one clock reading
+// and one UTC reading, and the answer follows the UTC one.
+func TestDateExpired(t *testing.T) {
+	t.Parallel()
+	expiry := Date("2026-11-04")
+	east := time.FixedZone("UTC+8", 8*60*60)
+	west := time.FixedZone("UTC-5", -5*60*60)
+	for _, tc := range []struct {
+		name string
+		now  time.Time
+		want bool
+	}{
+		{"the expiry day itself is still covered", time.Date(2026, 11, 4, 0, 0, 1, 0, time.UTC), false},
+		{"the first minute after it is not", time.Date(2026, 11, 5, 0, 0, 0, 0, time.UTC), true},
+		{"a clock behind UTC cannot widen the window", time.Date(2026, 11, 4, 20, 0, 0, 0, west), true},
+		{"a clock ahead of UTC cannot narrow it", time.Date(2026, 11, 5, 2, 0, 0, 0, east), false},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			t.Parallel()
+			if got := expiry.Expired(tc.now); got != tc.want {
+				t.Errorf("Expired(%s) = %v, want %v", tc.now.Format(time.RFC3339), got, tc.want)
+			}
+		})
+	}
+}
+
 // An acceptance may name the network it holds for. The value is validated with the
 // same function as the top-level network, so an alias and a full passphrase are
 // both accepted and a near miss is refused rather than silently matching nothing.
@@ -141,6 +194,16 @@ reason = "known drift"
 				t.Fatalf("network %q: err = %v, want %v", tc.network, err, tc.wantErr)
 			}
 		})
+	}
+}
+
+// An expiry that is not a date has no last day to hold on, so it reads as expired
+// rather than as an acceptance that never ends. Load refuses such a value; the
+// method is what keeps a hand-built entry from outliving it.
+func TestDateExpiredOnMalformedValue(t *testing.T) {
+	t.Parallel()
+	if !Date("the 4th of November").Expired(time.Date(2020, 1, 1, 0, 0, 0, 0, time.UTC)) {
+		t.Error("a malformed expiry must read as expired")
 	}
 }
 
