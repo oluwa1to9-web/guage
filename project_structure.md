@@ -53,6 +53,9 @@ guage/
       {threshold,threshold_test}.go       # authorization math as verified in 0.7 (2.3)
       cap_test.go                         # the 20-signature envelope cap at its boundary, largest weights kept (7.29)
       crosscheck_test.go                  # subset search to 12 signers and a count-indexed cap DP at 24 (7.30)
+      preauth_test.go                     # pre-auth transaction exclusion in standing weight sum (7.51)
+      minsigners_test.go                  # MinSigners early returns against boundary signers (7.52)
+      zero_weight_test.go                 # weight filter at every tier against lone and mixed signers (7.53)
     sanitize/
       {text,domain,markdown}.go            # output and domain handling (2.5, 5.3)
       {sanitize_test,fuzz_test}.go         # injection classes, IDN, fencing; FuzzText and FuzzFenced

@@ -124,6 +124,9 @@ backlog() {
     '7.48	type: test	area: sep1	test(sep1): prove redirect refusals stop before a request leaves' \
     '7.49	type: test	area: sep1	test(sep1): count malformed ACCOUNTS without dropping the document' \
     '7.50	type: test	area: sep1	test(sep1): treat a whitespace home domain as absent' \
+    '7.51	type: test	area: threshold	test(threshold): pre-auth tx exclusion in standing weight sum' \
+    '7.52	type: test	area: threshold	test(threshold): early returns in MinSigners against boundary signers' \
+    '7.53	type: test	area: threshold	test(threshold): weight filter at every tier against lone and mixed signers' \
     'G1	type: test	area: rules	gate: every P0 requirement has passing tests' \
     'G2	type: test	area: rules	gate: every scenario has a fixture and expected findings' \
     'G3	type: test	area: cli	gate: fail-closed paths all exit non-zero' \

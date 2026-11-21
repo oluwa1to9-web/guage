@@ -1,6 +1,6 @@
 # ROADMAP: Gauge
 
-Last updated: 2026-11-21T12:15Z (gate G7 sweep: documents agree with code, recorded readings for G5 and G6)
+Last updated: 2026-11-21T12:20Z (gate G7 sweep: documents agree with code, recorded readings for G5 and G6)
 Roadmap version: 3
 
 This file is the single source of truth for remaining work. It is read before every task and updated after every change.
@@ -40,7 +40,7 @@ The repository is 100% ready when every task in Phases 0 to 6 is done and every 
 | 4 | Dogfood and release v0.1.0 | 4 | 9 | 44% |
 | 5 | v0.2 features | 9 | 11 | 81% |
 | 6 | Release v0.2.0 and community | 1 | 5 | 20% |
-| 7 (backlog) | Backlog | 43 | 47 | 91% |
+| 7 (backlog) | Backlog | 46 | 50 | 92% |
 | **Phases 0 to 6** | **Readiness total** | **67** | **79** | **84%** |
 | Gates | G1 to G10 | 8 | 10 | 80% |
 <!-- PROGRESS:END -->
@@ -270,6 +270,9 @@ Constraint on the two remaining experimental tasks: Gauge never builds or submit
 - [x] **7.48** Prove SEP-1 redirect refusals stop before a request leaves and the refused `Location` never reaches the report. S. Deps: 3.5. (done 2026-11-20: `internal/sep1/redirect_test.go` checks refused schemes, hosts and ports are not contacted, the location is not echoed, and same-host relative redirects still work.)
 - [x] **7.49** Count malformed SEP-1 `ACCOUNTS` entries without dropping the parsed document. S. Deps: 3.5. (done 2026-11-20: `internal/sep1/accounts_test.go` covers absent, empty, mixed-validity and all-invalid entries, including a document with a passphrase.)
 - [x] **7.50** Treat a whitespace SEP-1 home domain as absent, not hostile. S. Deps: 3.5. (done 2026-11-20: `internal/sep1/home_domain_test.go` covers whitespace, normalization, rejected domains and no network dial for absent or invalid domains.)
+- [x] **7.51** Keep pre-authorized transaction entries out of the standing weight sum, tested at the top tier and beside a signed-payload signer of the same weight. S. Done when: `internal/threshold/preauth_test.go` tables a lone `T...` signer of weight 255 at thresholds 0, 1 and 255, a `T...` of 255 beside a `P...` of 1 at threshold 1, and a `T...` of weight 255 beside a `G` of weight 10, and a build whose filter keeps `SignerPreAuthTx` fails a row. (done 2026-11-18: `internal/threshold/preauth_test.go` added covering the 6 cases.)
+- [x] **7.52** Pin the early return in `MinSigners` against an empty list, a lone zero-weight master and a single weight-255 signer. S. Done when: `internal/threshold/minsigners_test.go` tables an empty list at thresholds 0, 1 and 255, a lone weight-0 master at 0, 1 and 255, one weight-1 signer at 0 and 1, and a single weight-255 signer at 1, 254, 255 and 256, and the table fails if the early return moves above the empty check. (done 2026-11-18: `internal/threshold/minsigners_test.go` added covering the 12 cases.)
+- [x] **7.53** Pin the weight filter at every tier against lone and mixed signers. S. Done when: `internal/threshold/zero_weight_test.go` tables a lone weight-0 master at thresholds 0, 1 and 255, pairs it with a weight-5 signer at 0, 5, 6 and 255, adds negative-weight rows, and compares a mixed list against the same list without the zero and negative entries at 0, 1, 5, 6 and 255. (done 2026-11-18: `internal/threshold/zero_weight_test.go` added covering all cases.)
 ## 6. Dependency map (critical path)
 
 `0.2, 0.4 -> 1.1 -> 1.4 -> 2.1 -> 2.2, 2.3, 2.5 -> 2.7 -> 2.8 -> 2.9 -> 3.1 to 3.5 -> 3.7 -> 4.1 -> 4.8`
@@ -320,6 +323,7 @@ Newest first. One row per merged change.
 | Date (UTC) | Change | Tasks |
 |---|---|---|
 | 2026-11-21 | Gate G7 closes on a recorded sweep bringing every document into agreement with the code. Updated ARCHITECTURE.md, ARCHITECTURE_ESSENTIALS.md, project_structure.md, CONTRIBUTING.md, SECURITY.md, PRD.md, AGENTS.md, site/status.html, and site/mechanics.html to reflect Phase 3 completion, 16 registered rules, facts report, 200 passing tests, 38 golden files, site motion layer, and dynamic README sync. Recorded observations for gate G5 (issue #70: Scorecard 6.8 with 3 branch protection warnings under D-14, ci / go and ci / vuln clean in run 42627808348) and gate G6 (issue #71: 0 releases and 0 tags under D-12, attestation requires hosted tag workflow). | G7 |
+| 2026-11-21 | Tasks 7.51 to 7.53 (close #226): added `internal/threshold/preauth_test.go`, `internal/threshold/minsigners_test.go` and `internal/threshold/zero_weight_test.go` covering pre-auth transaction exclusion, MinSigners early returns, and zero/negative weight filtering at all tiers. | 7.51, 7.52, 7.53 |
 | 2026-11-21 | Task 5.8: Documentation site completed: added `site/developers.html` and `site/contributing.html`, updated `site/guides.html` with the `other` role row, linked in side navigation across all pages, updated README and project_structure.md. | 5.8 |
 | 2026-11-21 | Tasks 7.48 to 7.50 (close #228): added `internal/sep1/redirect_test.go`, `internal/sep1/accounts_test.go` and `internal/sep1/home_domain_test.go` covering redirect refusals, malformed `ACCOUNTS` parsing without document loss, and whitespace home-domain normalization. | 7.48, 7.49, 7.50 |
 | 2026-11-21 | Task 5.7: Performance, rate-limit, and bounded-concurrency tests with many accounts in `internal/source/horizon_test.go`. Verified peak in-flight requests stay bounded by concurrency caps under 50-account load, HTTP 429 rate limits with `Retry-After` back off and complete without leaking responses, rate-limit exhaustion fails closed after bounded retries, concurrent mixed load enforces timeouts and body size caps, and programmatic checks verify the 0.12 defaults. | 5.7 |
