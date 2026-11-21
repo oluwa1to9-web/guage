@@ -111,6 +111,14 @@ backlog() {
     '6.3	type: research	area: rules	docs(triage): review external false-positive reports' \
     '6.4	type: research	area: docs	docs(decisions): decide funding and applications (D-07)' \
     '6.5	type: docs	area: docs	docs(outreach): contact issuers, anchors and treasury teams' \
+    '7.5	type: test	area: cli	test(cli): refuse a seed before building a client' \
+    '7.6	type: test	area: ci	test(ci): reject duplicated backlog rows' \
+    '7.8	type: test	area: rules	test(rules): prove rule evaluation never mutates the observed snapshot' \
+    '7.9	type: test	area: rules	test(rules): each finding carries the ID of the rule that emitted it' \
+    '7.10	type: feature	area: model	feat(model): add Valid and Equal helpers to Thresholds and Flags' \
+    '7.33	type: security	area: sanitize	security(sanitize): conformance matrix across all four entry points' \
+    '7.34	type: test	area: run	test(run): keep the first account error when a later read fails' \
+    '7.35	type: fix	area: run	fix(run): stop the run when the context ends between stages' \
     'G1	type: test	area: rules	gate: every P0 requirement has passing tests' \
     'G2	type: test	area: rules	gate: every scenario has a fixture and expected findings' \
     'G3	type: test	area: cli	gate: fail-closed paths all exit non-zero' \
@@ -122,6 +130,22 @@ backlog() {
     'G9	type: research	area: docs	gate: no open High risk without mitigation' \
     'G10	type: docs	area: docs	gate: ROADMAP.md current in the latest merged PR'
 }
+
+# Read the curated table once. The main loop consumes this copy, and the
+# duplicate check runs before any mode can turn a repeated id into a second
+# issue with the same marker.
+backlog_file="$(mktemp)"
+trap 'rm -f "${backlog_file}"' EXIT
+backlog >"${backlog_file}"
+
+duplicates="$(cut -f1 "${backlog_file}" | sort | uniq -d)"
+if [ -n "${duplicates}" ]; then
+  while IFS= read -r id; do
+    [ -n "${id}" ] || continue
+    echo "generate_issues: duplicate backlog row for ${id}" >&2
+  done <<<"${duplicates}"
+  exit 1
+fi
 
 strip_backticks() {
   tr -d '`'
@@ -313,7 +337,7 @@ while IFS=$'\t' read -r id ttype tarea title; do
   fi
   rm -f "${body}"
   planned=$((planned + 1))
-done < <(backlog)
+done <"${backlog_file}"
 
 if [ "${check}" -eq 1 ]; then
   missing="$(awk '/^- \[[ ]\] \*\*(G[0-9]+|[0-6]\.[0-9]+)\*\*/ {
