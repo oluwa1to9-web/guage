@@ -74,7 +74,7 @@ guage/
       horizon_test.go                     # fake-server success and failure-mode tests (2.7)
     sep1/
       {fetch,guard,parse}.go               # guarded identity acquisition: hostname check, dial-time IP guard, caps (3.5)
-      {fetch_test,guard_test,parse_test}.go # SSRF, rebinding, redirect, size, sanitizer-boundary and parse tests (3.5)
+      {fetch_test,guard_test,parse_test,accounts_test,home_domain_test,redirect_test}.go # SSRF, rebinding, redirect, size, sanitizer-boundary and parse tests (3.5, 7.48 to 7.50)
     rules/
       {rules,account,signers,thresholds,flags,identity}.go # registry and pure rule boundaries; identity and signers read the two role expectations 3.4 defines (3.1 to 3.5 done)
       facts.go                            # rules.Facts: the observations of one context, in the same pure shape as a rule and returning no finding (3.7)

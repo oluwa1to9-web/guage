@@ -121,6 +121,9 @@ backlog() {
     '7.43	type: test	area: sanitize	test(sanitize): consume OSC 8 hyperlinks whole, URL included' \
     '7.46	type: test	area: sanitize	test(sanitize): table the bidi overrides and isolate controls' \
     '7.47	type: test	area: sanitize	test(sanitize): flag IDN home domains and their punycode form' \
+    '7.48	type: test	area: sep1	test(sep1): prove redirect refusals stop before a request leaves' \
+    '7.49	type: test	area: sep1	test(sep1): count malformed ACCOUNTS without dropping the document' \
+    '7.50	type: test	area: sep1	test(sep1): treat a whitespace home domain as absent' \
     'G1	type: test	area: rules	gate: every P0 requirement has passing tests' \
     'G2	type: test	area: rules	gate: every scenario has a fixture and expected findings' \
     'G3	type: test	area: cli	gate: fail-closed paths all exit non-zero' \
